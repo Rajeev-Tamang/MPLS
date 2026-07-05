@@ -1,127 +1,128 @@
 ![INTRA-AS-MPLS-L3-VPN](INTRA%20AS%20MPLS%20L3%20VPN.jpg)
 # INTRA-AS-MPLS-L3-VPN
 # R1
-> vrf definition nepal-bank
->
-> rd 100:1
-> 
-> address-family ipv4
->
-> route-target both 1:1
->
-> 
-> vrf definition laxmi-sunrise-bank
->
-> rd 100:2
-> 
-> address-family ipv4
->
-> route-target both 2:2
-> 
-> int f 1/0
-> 
-> vrf forwarding nepal-bank
-> 
-> ip add 192.168.15.1 255.255.255.0
-> 
-> no shut
-> 
-> exit
->
-> int f 2/0
-> 
-> vrf forwarding laxmi-sunrise-bank
-> 
-> ip address 192.168.16.1 255.255.255.0
-> 
-> no shutdwon
-> 
-> exit
-> 
-> int f 0/0
-> 
-> ip address 192.168.12.1 255.255.255.0
-> 
-> mpls ip
-> 
-> no shutdown
-> 
-> exit
->
-> int loop 0
-> 
-> ip address 1.1.1.1 255.255.255.255
-> 
-> exit
->
-> ip cef
-> 
-> mpls ip
->
-> mpls ldp router-id loopback 0
->
-> router ospf 2 vrf nepal-bank
-> 
-> network 192.168.15.0 0.0.0.255 area 0
->
-> redistribute bgp 100 subnets
-> 
->router ospf 1
-> 
->network 1.1.1.1 0.0.0.0 area 0
-> 
->network 192.168.12.0 0.0.0.255 area 0
-> 
->router rip
-> 
->version 2
-> 
->no auto-summary
->
->address-family ipv4 vrf laxmi-sunrise-bank
->
-> network 192.168.16.0
->
-> redistribute bgp metric 1
-> 
-> no auto-summary
->
-  > version 2
->
-> exit-address-family
->
-> router bgp 100
->
-> bgp log-neighbor-changes
-> 
-> network 1.1.1.1 mask 255.255.255.255
-> 
-> neighbor 4.4.4.4 remote-as 100
-> 
-> neighbor 4.4.4.4 update-source Loopback0
-> 
-> neighbor 4.4.4.4 next-hop-self
->
-> address-family vpnv4
-> 
-> neighbor 4.4.4.4 activate
-> 
-> neighbor 4.4.4.4 send-community extended
-> 
-> exit-address-family
-> 
-> address-family ipv4 vrf laxmi-sunrise-bank
-> 
-> redistribute rip
-
-> exit-address-family
->
-> address-family ipv4 vrf nepal-bank
-> 
-> redistribute ospf 2
-> 
-> exit-address-family
->
+```
+    >  vrf definition nepal-bank
+    >
+    > rd 100:1
+    > 
+    > address-family ipv4
+    >
+    > route-target both 1:1
+    >
+    > 
+    > vrf definition laxmi-sunrise-bank
+    >
+    > rd 100:2
+    > 
+    > address-family ipv4
+    >
+    > route-target both 2:2
+    > 
+    > int f 1/0
+    > 
+    > vrf forwarding nepal-bank
+    > 
+    > ip add 192.168.15.1 255.255.255.0
+    > 
+    > no shut
+    > 
+    > exit
+    >
+    > int f 2/0
+    > 
+    > vrf forwarding laxmi-sunrise-bank
+    > 
+    > ip address 192.168.16.1 255.255.255.0
+    > 
+    > no shutdwon
+    > 
+    > exit
+    > 
+    > int f 0/0
+    > 
+    > ip address 192.168.12.1 255.255.255.0
+    > 
+    > mpls ip
+    > 
+    > no shutdown
+    > 
+    > exit
+    >
+    > int loop 0
+    > 
+    > ip address 1.1.1.1 255.255.255.255
+    > 
+    > exit
+    >
+    > ip cef
+    > 
+    > mpls ip
+    >
+    > mpls ldp router-id loopback 0
+    >
+    > router ospf 2 vrf nepal-bank
+    > 
+    > network 192.168.15.0 0.0.0.255 area 0
+    >
+    > redistribute bgp 100 subnets
+    > 
+    >router ospf 1
+    > 
+    >network 1.1.1.1 0.0.0.0 area 0
+    > 
+    >network 192.168.12.0 0.0.0.255 area 0
+    > 
+    >router rip
+    > 
+    >version 2
+    > 
+    >no auto-summary
+    >
+    >address-family ipv4 vrf laxmi-sunrise-bank
+    >
+    > network 192.168.16.0
+    >
+    > redistribute bgp metric 1
+    > 
+    > no auto-summary
+    >
+      > version 2
+    >
+    > exit-address-family
+    >
+    > router bgp 100
+    >
+    > bgp log-neighbor-changes
+    > 
+    > network 1.1.1.1 mask 255.255.255.255
+    > 
+    > neighbor 4.4.4.4 remote-as 100
+    > 
+    > neighbor 4.4.4.4 update-source Loopback0
+    > 
+    > neighbor 4.4.4.4 next-hop-self
+    >
+    > address-family vpnv4
+    > 
+    > neighbor 4.4.4.4 activate
+    > 
+    > neighbor 4.4.4.4 send-community extended
+    > 
+    > exit-address-family
+    > 
+    > address-family ipv4 vrf laxmi-sunrise-bank
+    > 
+    > redistribute rip
+    
+    > exit-address-family
+    >
+    > address-family ipv4 vrf nepal-bank
+    > 
+    > redistribute ospf 2
+    > 
+    > exit-address-family
+```
 
 # R2
 >
