@@ -2,53 +2,50 @@
 # INTRA-AS-MPLS-L3-VPN
 # R1
 ```
-    >  vrf definition nepal-bank
-    >
-    > rd 100:1
-    > 
-    > address-family ipv4
-    >
-    > route-target both 1:1
-    >
-    > 
-    > vrf definition laxmi-sunrise-bank
-    >
-    > rd 100:2
-    > 
-    > address-family ipv4
-    >
-    > route-target both 2:2
-    > 
-    > int f 1/0
-    > 
-    > vrf forwarding nepal-bank
-    > 
-    > ip add 192.168.15.1 255.255.255.0
-    > 
-    > no shut
-    > 
-    > exit
-    >
-    > int f 2/0
-    > 
-    > vrf forwarding laxmi-sunrise-bank
-    > 
-    > ip address 192.168.16.1 255.255.255.0
-    > 
-    > no shutdwon
-    > 
-    > exit
-    > 
-    > int f 0/0
-    > 
-    > ip address 192.168.12.1 255.255.255.0
-    > 
-    > mpls ip
-    > 
-    > no shutdown
-    > 
-    > exit
-    >
+      vrf definition nepal-bank
+    
+     rd 100:1
+     
+     address-family ipv4
+     route-target both 1:1 
+    vrf definition laxmi-sunrise-bank
+    
+    rd 100:2
+     
+    address-family ipv4
+    
+    route-target both 2:2
+     
+    int f 1/0
+     
+    vrf forwarding nepal-bank
+     
+     ip add 192.168.15.1 255.255.255.0
+     
+     no shut
+     
+     exit
+    
+     int f 2/0
+     
+     vrf forwarding laxmi-sunrise-bank
+     
+     ip address 192.168.16.1 255.255.255.0
+     
+     no shutdwon
+     
+     exit
+     
+     int f 0/0
+     
+     ip address 192.168.12.1 255.255.255.0
+     
+     mpls ip
+     
+     no shutdown
+     
+     exit
+    
     > int loop 0
     > 
     > ip address 1.1.1.1 255.255.255.255
